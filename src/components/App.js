@@ -5,16 +5,43 @@ import Footer from './Footer';
 import PopupWithImage from './popupWithImage';
 import PopupWithForm from './PopupWithForm';
 
-function App() {
+const App = () => {
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+
+  const closeAllPopups = (evt) => {
+    if (evt.target === evt.currentTarget) {
+      setEditAvatarPopupOpen(false);
+      setEditProfilePopupOpen(false);
+      setAddPlacePopupOpen(false);
+    }
+  }
+
+  const handleEditAvatarClick = () => {
+    setEditAvatarPopupOpen(true);
+  }
+
+  const handleEditProfileClick = () => {
+    setEditProfilePopupOpen(true);
+  }
+
+  const handleAddPlaceClick = () => {
+    setAddPlacePopupOpen(true);
+  }
+
   return (
     <>
       <Header />
 
-      <Main />
+      <Main
+        onEditProfile={handleEditProfileClick}
+        onEditAvatar={handleEditAvatarClick}
+        onAddPlace={handleAddPlaceClick} />
 
       <Footer />
 
-      <PopupWithForm elemClass={'info'} elemTitle={'Редактировать профиль'}>
+      <PopupWithForm name={'info'} title={'Редактировать профиль'} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
         <fieldset className="popup__fieldset">
           <div className="popup__field">
             <input type="text" className="popup__input popup__input_el_name" id="name" name="name" placeholder="Имя" required minLength={2} maxLength={40} />
@@ -27,7 +54,7 @@ function App() {
         </fieldset>
       </PopupWithForm>
 
-      <PopupWithForm elemClass={'avatar'} elemTitle={'Обновить аватар'}>
+      <PopupWithForm name={'avatar'} title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
         <fieldset className="popup__fieldset">
           <div className="popup__field">
             <input type="url" className="popup__input popup__input_el_link-avatar" id="link-avatar" name="link" placeholder="Ссылка на картинку" required />
@@ -36,7 +63,7 @@ function App() {
         </fieldset>
       </PopupWithForm>
 
-      <PopupWithForm elemClass={'addCard'} elemTitle={'Новое место'}>
+      <PopupWithForm name={'addCard'} title={'Новое место'} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
         <fieldset className="popup__fieldset">
           <div className="popup__field">
             <input type="text" className="popup__input popup__input_el_name-card" id="name-card" name="name" placeholder="Название" required minLength={2} maxLength={30} />
@@ -51,7 +78,7 @@ function App() {
 
       <PopupWithImage />
 
-      <PopupWithForm elemClass={'delete-card'} elemTitle={'Вы уверены?'} />
+      <PopupWithForm name={'delete-card'} title={'Вы уверены?'} />
 
       <template id="card" />
     </>

@@ -1,0 +1,9 @@
+.info__conteiner {
+  display: flex;
+}
+
+@media screen and (max-width: 425px) {
+  .info__conteiner {
+    margin-left: 30px;
+  }
+}

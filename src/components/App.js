@@ -10,11 +10,15 @@ const App = () => {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
 
-  const closeAllPopups = (evt) => {
-    if (evt.target === evt.currentTarget) {
-      setEditAvatarPopupOpen(false);
-      setEditProfilePopupOpen(false);
-      setAddPlacePopupOpen(false);
+  const closeAllPopups = () => {
+    setEditAvatarPopupOpen(false);
+    setEditProfilePopupOpen(false);
+    setAddPlacePopupOpen(false);
+  }
+
+  const handleClosePopup = (evt) => {
+    if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__button_el_close')) {
+      closeAllPopups();
     }
   }
 
@@ -41,7 +45,7 @@ const App = () => {
 
       <Footer />
 
-      <PopupWithForm name={'info'} title={'Редактировать профиль'} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm name={'info'} title={'Редактировать профиль'} isOpen={isEditProfilePopupOpen} onClose={handleClosePopup}>
         <fieldset className="popup__fieldset">
           <div className="popup__field">
             <input type="text" className="popup__input popup__input_el_name" id="name" name="name" placeholder="Имя" required minLength={2} maxLength={40} />
@@ -54,7 +58,7 @@ const App = () => {
         </fieldset>
       </PopupWithForm>
 
-      <PopupWithForm name={'avatar'} title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm name={'avatar'} title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} onClose={handleClosePopup}>
         <fieldset className="popup__fieldset">
           <div className="popup__field">
             <input type="url" className="popup__input popup__input_el_link-avatar" id="link-avatar" name="link" placeholder="Ссылка на картинку" required />
@@ -63,7 +67,7 @@ const App = () => {
         </fieldset>
       </PopupWithForm>
 
-      <PopupWithForm name={'addCard'} title={'Новое место'} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
+      <PopupWithForm name={'addCard'} title={'Новое место'} isOpen={isAddPlacePopupOpen} onClose={handleClosePopup}>
         <fieldset className="popup__fieldset">
           <div className="popup__field">
             <input type="text" className="popup__input popup__input_el_name-card" id="name-card" name="name" placeholder="Название" required minLength={2} maxLength={30} />

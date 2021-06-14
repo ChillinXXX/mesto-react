@@ -6,14 +6,26 @@ import PopupWithImage from './popupWithImage';
 import PopupWithForm from './PopupWithForm';
 
 const App = () => {
+
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+  const [isPreviewPopupOpen, setPreviewPopupOpen] = React.useState(false);
+  const [isSelectedCard, setSelectedCard] = React.useState({});
 
   const closeAllPopups = () => {
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
+    setPreviewPopupOpen(false);
+    setSelectedCard({});
+  }
+
+  const handleCardClick = (card) => {
+    console.log(card);
+    setSelectedCard(card);
+    console.log(isSelectedCard);
+    setPreviewPopupOpen(true);
   }
 
   const handleClosePopup = (evt) => {
@@ -39,9 +51,10 @@ const App = () => {
       <Header />
 
       <Main
-        onEditProfile={handleEditProfileClick}
-        onEditAvatar={handleEditAvatarClick}
-        onAddPlace={handleAddPlaceClick} />
+        onEditProfile  = { handleEditProfileClick }
+        onEditAvatar   = { handleEditAvatarClick }
+        onAddPlace     = { handleAddPlaceClick }
+        onCardClick    = { handleCardClick } />
 
       <Footer />
 
@@ -80,7 +93,7 @@ const App = () => {
         </fieldset>
       </PopupWithForm>
 
-      <PopupWithImage />
+      <PopupWithImage card = { isSelectedCard } isOpen = { isPreviewPopupOpen } onClose = { handleClosePopup } />
 
       <PopupWithForm name={'delete-card'} title={'Вы уверены?'} />
 

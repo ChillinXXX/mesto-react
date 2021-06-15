@@ -1,6 +1,6 @@
 import React from 'react';
 
- const PopupWithImage = ({card, isOpen, onClose }) => {
+ const ImagePopup = ({card, isOpen, onClose }) => {
   return (
     <div onClick={onClose} className={!isOpen ? 'popup popup_el_preview' : 'popup popup_el_preview popup_opened'}>
         <figure className="popup__figure">
@@ -12,4 +12,4 @@ import React from 'react';
   );
 }
 
-export default PopupWithImage
+export default ImagePopup

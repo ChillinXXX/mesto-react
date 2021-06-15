@@ -2,25 +2,27 @@ import React from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithImage from './popupWithImage';
+import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 
 const App = () => {
-  
+
   //Переменные useState:
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isPreviewPopupOpen, setPreviewPopupOpen] = React.useState(false);
-  const [isSelectedCard, setSelectedCard] = React.useState({});
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   //Функция: Закрытие попаов и сброс значений
-  const closeAllPopups = () => {
-    setEditProfilePopupOpen(false);
-    setEditAvatarPopupOpen(false);
-    setAddPlacePopupOpen(false);
-    setPreviewPopupOpen(false);
-    setSelectedCard({});
+  const closeAllPopups = (evt) => {
+    if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__button_el_close')) {
+      setEditProfilePopupOpen(false);
+      setEditAvatarPopupOpen(false);
+      setAddPlacePopupOpen(false);
+      setPreviewPopupOpen(false);
+      setSelectedCard({});
+    }
   }
 
   //Хендл: Записываем в переменную useState значение кликанутой карточки
@@ -30,11 +32,11 @@ const App = () => {
   }
 
   //Хендл: Закрытие попапов по клику кнопки Close или фону попапа
-  const handleClosePopup = (evt) => {
+  /*const handleClosePopup = (evt) => {
     if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__button_el_close')) {
       closeAllPopups();
     }
-  }
+  }*/
 
    //Хендл: Записываем в переменную useState значение true для передачи в компонент PopupWithForm с аватаром
   const handleEditAvatarClick = () => {
@@ -63,7 +65,7 @@ const App = () => {
 
       <Footer />
 
-      <PopupWithForm name={'info'} title={'Редактировать профиль'} isOpen={isEditProfilePopupOpen} onClose={handleClosePopup}>
+      <PopupWithForm name={'info'} title={'Редактировать профиль'} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
         <fieldset className="popup__fieldset">
           <div className="popup__field">
             <input type="text" className="popup__input popup__input_el_name" id="name" name="name" placeholder="Имя" required minLength={2} maxLength={40} />
@@ -76,7 +78,7 @@ const App = () => {
         </fieldset>
       </PopupWithForm>
 
-      <PopupWithForm name={'avatar'} title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} onClose={handleClosePopup}>
+      <PopupWithForm name={'avatar'} title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
         <fieldset className="popup__fieldset">
           <div className="popup__field">
             <input type="url" className="popup__input popup__input_el_link-avatar" id="link-avatar" name="link" placeholder="Ссылка на картинку" required />
@@ -85,7 +87,7 @@ const App = () => {
         </fieldset>
       </PopupWithForm>
 
-      <PopupWithForm name={'addCard'} title={'Новое место'} isOpen={isAddPlacePopupOpen} onClose={handleClosePopup}>
+      <PopupWithForm name={'addCard'} title={'Новое место'} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
         <fieldset className="popup__fieldset">
           <div className="popup__field">
             <input type="text" className="popup__input popup__input_el_name-card" id="name-card" name="name" placeholder="Название" required minLength={2} maxLength={30} />
@@ -98,7 +100,7 @@ const App = () => {
         </fieldset>
       </PopupWithForm>
 
-      <PopupWithImage card = { isSelectedCard } isOpen = { isPreviewPopupOpen } onClose = { handleClosePopup } />
+      <ImagePopup card = { selectedCard } isOpen = { isPreviewPopupOpen } onClose = { closeAllPopups } />
 
       <PopupWithForm name={'delete-card'} title={'Вы уверены?'} />
 

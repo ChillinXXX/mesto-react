@@ -6,42 +6,47 @@ import PopupWithImage from './popupWithImage';
 import PopupWithForm from './PopupWithForm';
 
 const App = () => {
-
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+  
+  //Переменные useState:
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isPreviewPopupOpen, setPreviewPopupOpen] = React.useState(false);
   const [isSelectedCard, setSelectedCard] = React.useState({});
 
+  //Функция: Закрытие попаов и сброс значений
   const closeAllPopups = () => {
-    setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
+    setEditAvatarPopupOpen(false);
     setAddPlacePopupOpen(false);
     setPreviewPopupOpen(false);
     setSelectedCard({});
   }
 
-  const handleCardClick = (card) => {
-    console.log(card);
-    setSelectedCard(card);
-    console.log(isSelectedCard);
+  //Хендл: Записываем в переменную useState значение кликанутой карточки
+  const handleCardClick = (evt) => {
+    setSelectedCard(evt.target);
     setPreviewPopupOpen(true);
   }
 
+  //Хендл: Закрытие попапов по клику кнопки Close или фону попапа
   const handleClosePopup = (evt) => {
     if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__button_el_close')) {
       closeAllPopups();
     }
   }
 
+   //Хендл: Записываем в переменную useState значение true для передачи в компонент PopupWithForm с аватаром
   const handleEditAvatarClick = () => {
     setEditAvatarPopupOpen(true);
   }
 
+  //Хендл: Записываем в переменную useState значение true для передачи в компонент PopupWithForm с пофилем
   const handleEditProfileClick = () => {
     setEditProfilePopupOpen(true);
   }
 
+  //Хендл: Записываем в переменную useState значение true для передачи в компонент PopupWithForm сдобавлением карточки
   const handleAddPlaceClick = () => {
     setAddPlacePopupOpen(true);
   }

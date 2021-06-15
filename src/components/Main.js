@@ -4,12 +4,14 @@ import api from '../utils/Api';
 import Card from './Card';
 
 const Main = ({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) => {
-
+  
+  //Переменные useState:
   const [userName, setUserName] = React.useState('Имя пользователя');
   const [userDescription, setUserDescription] = React.useState('О себе');
   const [userAvatar, setUserAvatar] = React.useState(avatar);
   const [cards, setCards] = React.useState([]);
 
+  //При перевой загрузке страницы делаем API запрос данных пользователей и записывае в значения переменных useState
   React.useEffect(() => {
     api.getUserInfo()
       .then((result) => {
@@ -20,6 +22,7 @@ const Main = ({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) => {
       .catch((error) => alert(`Что-то пошло не так=( ${error}`));
   }, [])
 
+  //При перевой загрузке страницы делаем API запрос данных карточек и записывае в значения переменных useState
   React.useEffect(() => {
     api.getInitialCardList()
       .then((result) => {
@@ -46,7 +49,7 @@ const Main = ({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) => {
       <section className="cards-section">
         <ul className="cards">
           {cards.map(({ name, link, likes, _id }) => (
-            <Card key = { _id } isNameCard = { name } isLinkCard = { link } isLikesCard = { likes } onCardClick={onCardClick}/>
+            <Card key = { _id } isNameCard = { name } isLinkCard = { link } isLikesCard = { likes } onCardClick = { onCardClick }/>
           ))}
         </ul>
       </section>

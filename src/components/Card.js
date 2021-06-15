@@ -1,14 +1,9 @@
 import React from 'react';
 
 const Card = ({ isNameCard, isLinkCard, isLikesCard, onCardClick }) => {
-
-  const handleClick = () => {
-    onCardClick({isNameCard, isLinkCard, isLikesCard})
-  }
-
   return (
     <li className="cards__item">
-      <img onClick={handleClick} className="cards__images" src={isLinkCard} alt={isNameCard} />
+      <img onClick={onCardClick} className="cards__images" src={isLinkCard} alt={isNameCard} />
       <div className="cards__caption">
         <h3 className="cards__title">{isNameCard}</h3>
         <div className="cards__like">

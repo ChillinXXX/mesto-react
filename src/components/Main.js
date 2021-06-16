@@ -1,10 +1,10 @@
 import React from 'react';
 import avatar from '../images/image-avatar.jpg';
-import api from '../utils/Api';
+import api from '../utils/api';
 import Card from './Card';
 
 const Main = ({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) => {
-  
+
   //Переменные useState:
   const [userName, setUserName] = React.useState('Имя пользователя');
   const [userDescription, setUserDescription] = React.useState('О себе');
@@ -49,7 +49,7 @@ const Main = ({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) => {
       <section className="cards-section">
         <ul className="cards">
           {cards.map(({ name, link, likes, _id }) => (
-            <Card key = { _id } isNameCard = { name } isLinkCard = { link } isLikesCard = { likes } onCardClick = { onCardClick }/>
+            <Card key = { _id } name = { name } link = { link } likes = { likes } onCardClick = { onCardClick }/>
           ))}
         </ul>
       </section>

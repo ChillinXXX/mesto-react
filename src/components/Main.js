@@ -1,6 +1,6 @@
 import React from 'react';
 import avatar from '../images/image-avatar.jpg';
-import api from '../utils/api';
+import {api} from '../utils/api';
 import Card from './Card';
 
 const Main = ({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) => {

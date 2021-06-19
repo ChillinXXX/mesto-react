@@ -1,8 +1,9 @@
 import React from 'react';
 
 const PopupWithForm = ({ name, title, buttonTextContent, isOpen, onClose, children }) => {
+  const popupOpened = isOpen ? `popup_opened` : '';
   return (
-    <div onClick={onClose} className={isOpen ? `popup popup_el_${name} popup_opened` : `popup popup_el_${name}`}>
+    <div onClick={onClose} className={`popup popup_el_${name} ${popupOpened}`}>
       <form className="popup__form" name={name}>
         <h2 className="popup__title">{title}</h2>
         <fieldset className="popup__fieldset">

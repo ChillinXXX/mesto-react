@@ -64,38 +64,38 @@ const App = () => {
 
       <Footer />
 
-      <PopupWithForm name={'info'} title={'Редактировать профиль'} buttonTextContent = { buttonText.save } isOpen={isEditProfilePopupOpen} onClose={handleClosePopup}>
-        <div className="popup__field">
-          <input type="text" className="popup__input popup__input_el_name" id="name" name="name" placeholder="Имя" required minLength={2} maxLength={40} />
-          <span className="popup__input-error name-error" />
-        </div>
-        <div className="popup__field">
-          <input type="text" className="popup__input popup__input_el_about" id="about" name="about" placeholder="О себе" required minLength={2} maxLength={200} />
-          <span className="popup__input-error about-error" />
-        </div>
+      <PopupWithForm name={'info'} title={'Редактировать профиль'} buttonTextContent={buttonText.save} isOpen={isEditProfilePopupOpen} onClose={handleClosePopup}>
+          <div className="popup__field">
+            <input type="text" className="popup__input popup__input_el_name" id="name" name="name" placeholder="Имя" required minLength={2} maxLength={40} />
+            <span className="popup__input-error name-error" />
+          </div>
+          <div className="popup__field">
+            <input type="text" className="popup__input popup__input_el_about" id="about" name="about" placeholder="О себе" required minLength={2} maxLength={200} />
+            <span className="popup__input-error about-error" />
+          </div>
       </PopupWithForm>
 
-      <PopupWithForm name={'avatar'} title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} buttonTextContent = { buttonText.save } onClose={handleClosePopup}>
-        <div className="popup__field">
-          <input type="url" className="popup__input popup__input_el_link-avatar" id="link-avatar" name="link" placeholder="Ссылка на картинку" required />
-          <span className="popup__input-error link-avatar-error" />
-        </div>
+      <PopupWithForm name={'avatar'} title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} buttonTextContent={buttonText.save} onClose={handleClosePopup}>
+          <div className="popup__field">
+            <input type="url" className="popup__input popup__input_el_link-avatar" id="link-avatar" name="link" placeholder="Ссылка на картинку" required />
+            <span className="popup__input-error link-avatar-error" />
+          </div>
       </PopupWithForm>
 
-      <PopupWithForm name={'addCard'} title={'Новое место'} buttonTextContent = { buttonText.create } isOpen={isAddPlacePopupOpen} onClose={handleClosePopup}>
-        <div className="popup__field">
-          <input type="text" className="popup__input popup__input_el_name-card" id="name-card" name="name" placeholder="Название" required minLength={2} maxLength={30} />
-          <span className="popup__input-error name-card-error" />
-        </div>
-        <div className="popup__field">
-          <input type="url" className="popup__input popup__input_el_link-card" id="link-card" name="link" placeholder="Ссылка на картинку" required />
-          <span className="popup__input-error link-card-error" />
-        </div>
+      <PopupWithForm name={'addCard'} title={'Новое место'} buttonTextContent={buttonText.create} isOpen={isAddPlacePopupOpen} onClose={handleClosePopup}>
+          <div className="popup__field">
+            <input type="text" className="popup__input popup__input_el_name-card" id="name-card" name="name" placeholder="Название" required minLength={2} maxLength={30} />
+            <span className="popup__input-error name-card-error" />
+          </div>
+          <div className="popup__field">
+            <input type="url" className="popup__input popup__input_el_link-card" id="link-card" name="link" placeholder="Ссылка на картинку" required />
+            <span className="popup__input-error link-card-error" />
+          </div>
       </PopupWithForm>
 
       <ImagePopup card={selectedCard} isOpen={isPreviewPopupOpen} onClose={handleClosePopup} />
 
-      <PopupWithForm name={'delete-card'} title={'Вы уверены?'} buttonTextContent = { buttonText.approve } />
+      <PopupWithForm name={'delete-card'} title={'Вы уверены?'} buttonTextContent={buttonText.approve} />
     </>
   );
 }

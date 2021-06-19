@@ -1,4 +1,4 @@
-export default class Api {
+class Api {
   constructor({ baseUrl, token }) {
     this._baseUrl = baseUrl;
     this._token = token;
@@ -106,4 +106,4 @@ export default class Api {
   token: 'b63830ed-4797-4bf0-871c-c795e3b54411'
 });
 
-export {api};
+export default api;

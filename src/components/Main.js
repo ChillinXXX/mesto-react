@@ -1,26 +1,14 @@
 import React from 'react';
-import avatar from '../images/image-avatar.jpg';
 import api from '../utils/api.js';
 import Card from './Card';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 
 const Main = ({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) => {
 
-  //Переменные useState:
-  const [userName, setUserName] = React.useState('Имя пользователя');
-  const [userDescription, setUserDescription] = React.useState('О себе');
-  const [userAvatar, setUserAvatar] = React.useState(avatar);
   const [cards, setCards] = React.useState([]);
 
-  //При перевой загрузке страницы делаем API запрос данных пользователей и записывае в значения переменных useState
-  React.useEffect(() => {
-    api.getUserInfo()
-      .then((result) => {
-        setUserName(result.name);
-        setUserDescription(result.about);
-        setUserAvatar(result.avatar);
-      })
-      .catch((error) => alert(`Что-то пошло не так=( ${error}`));
-  }, [])
+  const currentUser = React.useContext(CurrentUserContext);
+
 
   //При перевой загрузке страницы делаем API запрос данных карточек и записывае в значения переменных useState
   React.useEffect(() => {
@@ -35,14 +23,14 @@ const Main = ({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) => {
     <main className="content">
       <section className="profile">
         <div onClick={onEditAvatar} className="profile__edit-avatar">
-          <img src={userAvatar} alt="Аватар" className="profile__avatar" />
+          <img src={currentUser.avatar} alt="Аватар" className="profile__avatar" />
         </div>
         <div className="info">
           <div className="info__conteiner">
-            <h1 className="info__user-name">{userName}</h1>
+            <h1 className="info__user-name">{currentUser.name}</h1>
             <button onClick={onEditProfile} className="info__button-info" type="button" />
           </div>
-          <p className="info__user-description">{userDescription}</p>
+          <p className="info__user-description">{currentUser.about}</p>
         </div>
         <button onClick={onAddPlace} className="profile__button-add" type="button" />
       </section>

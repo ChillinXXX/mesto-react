@@ -1,6 +1,16 @@
 import React from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 
-const Card = ({ name, link, likes, onCardClick }) => {
+const Card = ({ owner, name, link, likes, onCardClick }) => {
+  //Подписываемся на контекст currentUser
+  const currentUser = React.useContext(CurrentUserContext);
+  //Определяем принадлежит ли карточка текущему ползователю
+  const isMyCard = owner._id === currentUser._id;
+  //Запишем в массив ID всех пользователей лакнувших карточку
+  const ownersID = likes.reduce((value, item) => {
+    const length = value.push(item._id);
+    return value;
+  }, []);
 
   //Функция: Передаем в хендл данные текущей карточки для  useState переменной selectedCard
   const handleClick = () => {
@@ -13,11 +23,11 @@ const Card = ({ name, link, likes, onCardClick }) => {
       <div className="cards__caption">
         <h3 className="cards__title">{name}</h3>
         <div className="cards__like">
-          <button className="cards__button-like" type="button" />
+          <button className = { ownersID.includes(currentUser._id) ? "cards__button-like_active" : "cards__button-like" } type="button" />
           <span className="cards__total-like">{likes.length}</span>
         </div>
       </div>
-      <button className="cards__button-delete" type="button" />
+      <button className={isMyCard ? "cards__button-delete" : "cards__button-delete_hidden"} type="button" />
     </li>
   )
 }

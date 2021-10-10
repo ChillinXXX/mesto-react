@@ -36,8 +36,8 @@ const Main = ({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) => {
       </section>
       <section className="cards-section">
         <ul className="cards">
-          {cards.map(({ name, link, likes, _id }) => (
-            <Card key = { _id } name = { name } link = { link } likes = { likes } onCardClick = { onCardClick }/>
+          {cards.map(({ name, link, likes, owner, _id }) => (
+            <Card key = { _id } owner = { owner } name = { name } link = { link } likes = { likes } onCardClick = { onCardClick }/>
           ))}
         </ul>
       </section>

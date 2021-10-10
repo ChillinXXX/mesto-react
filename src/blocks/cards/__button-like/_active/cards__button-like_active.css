@@ -1,3 +1,9 @@
 .cards__button-like_active {
+    width: 22px;
+    height: 19px;
+    padding: 0;
     background: url(../../../../images/button-like-active.svg) center no-repeat;
+    background-size: contain;
+    border: none;
+    outline: none;
   }

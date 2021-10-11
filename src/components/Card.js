@@ -1,7 +1,7 @@
 import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 
-const Card = ({ owner, name, link, likes, onCardClick }) => {
+const Card = ({id, owner, name, link, likes, onCardClick, onCardLike, onCardDelete }) => {
   //Подписываемся на контекст currentUser
   const currentUser = React.useContext(CurrentUserContext);
   //Определяем принадлежит ли карточка текущему ползователю
@@ -13,21 +13,29 @@ const Card = ({ owner, name, link, likes, onCardClick }) => {
   }, []);
 
   //Функция: Передаем в хендл данные текущей карточки для  useState переменной selectedCard
-  const handleClick = () => {
-    onCardClick({name, link})
+  const handleClickPreview = () => {
+    onCardClick({ name, link });
+  }
+
+  const handleLikeClick = () => {
+    onCardLike({ likes, id });
+  }
+
+  const handleDeleteCardClick = () => {
+    onCardDelete({ id });
   }
 
   return (
     <li className="cards__item">
-      <img onClick={handleClick} className="cards__images" src={link} alt={name} />
+      <img onClick={ handleClickPreview } className="cards__images" src={link} alt={name} />
       <div className="cards__caption">
         <h3 className="cards__title">{name}</h3>
         <div className="cards__like">
-          <button className = { ownersID.includes(currentUser._id) ? "cards__button-like_active" : "cards__button-like" } type="button" />
+          <button onClick = { handleLikeClick } className = { ownersID.includes(currentUser._id) ? "cards__button-like_active" : "cards__button-like" } type="button" />
           <span className="cards__total-like">{likes.length}</span>
         </div>
       </div>
-      <button className={isMyCard ? "cards__button-delete" : "cards__button-delete_hidden"} type="button" />
+      <button onClick = { handleDeleteCardClick } className={isMyCard ? "cards__button-delete" : "cards__button-delete_hidden"} type="button" />
     </li>
   )
 }

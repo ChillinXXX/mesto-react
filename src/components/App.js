@@ -6,7 +6,6 @@ import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 import { buttonText } from '../utils/constants.js';
 import api from '../utils/api.js';
-
 import { CurrentUserContext, defaultUser } from '../contexts/CurrentUserContext';
 
 const App = () => {

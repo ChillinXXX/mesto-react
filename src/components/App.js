@@ -82,7 +82,7 @@ const App = () => {
 
       <Footer />
 
-      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={handleClosePopup}/>
+      <EditProfilePopup isOpen={ isEditProfilePopupOpen } onClose={ handleClosePopup } setCurrentUserData = { setCurrentUser } onClosePopup = { closeAllPopups }/>
 
       {/* Переносим внутрь компонента EditProfilePopup
       <PopupWithForm name={'info'} title={'Редактировать профиль'} buttonTextContent={buttonText.save} isOpen={isEditProfilePopupOpen} onClose={handleClosePopup}>

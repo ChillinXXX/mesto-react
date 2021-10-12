@@ -20,7 +20,7 @@ const Main = ({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) => {
   //Функция обработки лайка/дизлайка карточки
   const handleCardLike = ({likes, id}) => {
     const isLiked = likes.some(i => i._id === currentUser._id);
-    !isLiked ?  
+    !isLiked ?
               api.setLike(id)
                             .then((dataCard) => {
                               const updateCards = cards.reduce((value, item) => {
@@ -33,7 +33,7 @@ const Main = ({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) => {
                                 .then((result) => {console.log(result)})
                                 .catch((error) => {console.log(`Ошибка API:${error}`)});
                               /////////////////////////Удалить костыль/////////////////////////
-                            }) 
+                            })
             : api.deleteLike(id)
                             .then((dataCard) => {
                               const updateCards = cards.reduce((value, item) => {
@@ -44,7 +44,7 @@ const Main = ({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) => {
                             });
   }
   //Функция обработки удаления карточки
-  const handleCardDelete = ({id}) => {
+  const handleCardDelete = ({ id }) => {
     api.deleteCard(id)
                     .then((serverResponse) => {
                         console.log(serverResponse);

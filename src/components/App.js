@@ -6,6 +6,7 @@ import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 import { buttonText } from '../utils/constants.js';
 import api from '../utils/api.js';
+import EditProfilePopup from './EditProfilePopup';
 import { CurrentUserContext, defaultUser } from '../contexts/CurrentUserContext';
 
 const App = () => {
@@ -81,6 +82,9 @@ const App = () => {
 
       <Footer />
 
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={handleClosePopup}/>
+
+      {/* Переносим внутрь компонента EditProfilePopup
       <PopupWithForm name={'info'} title={'Редактировать профиль'} buttonTextContent={buttonText.save} isOpen={isEditProfilePopupOpen} onClose={handleClosePopup}>
         <div className="popup__field">
           <input type="text" className="popup__input popup__input_el_name" id="name" name="name" placeholder="Имя" required minLength={2} maxLength={40} />
@@ -91,6 +95,7 @@ const App = () => {
           <span className="popup__input-error about-error" />
         </div>
       </PopupWithForm>
+      */}
 
       <PopupWithForm name={'avatar'} title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} buttonTextContent={buttonText.save} onClose={handleClosePopup}>
         <div className="popup__field">

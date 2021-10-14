@@ -47,7 +47,7 @@ const Main = ({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) => {
   const handleCardDelete = ({ id }) => {
     api.deleteCard(id)
                     .then((serverResponse) => {
-                        console.log(serverResponse);
+                        //console.log(serverResponse);
                         const updateCards = cards.filter(card => card._id !== id);
                         setCards(updateCards);
                       })
@@ -57,22 +57,22 @@ const Main = ({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) => {
   return (
     <main className="content">
       <section className="profile">
-        <div onClick={onEditAvatar} className="profile__edit-avatar">
-          <img src={currentUser.avatar} alt="Аватар" className="profile__avatar" />
+        <div onClick={ onEditAvatar } className="profile__edit-avatar">
+          <img src={ currentUser.avatar } alt="Аватар" className="profile__avatar" />
         </div>
         <div className="info">
           <div className="info__conteiner">
-            <h1 className="info__user-name">{currentUser.name}</h1>
-            <button onClick={onEditProfile} className="info__button-info" type="button" />
+            <h1 className="info__user-name">{ currentUser.name }</h1>
+            <button onClick={ onEditProfile } className="info__button-info" type="button" />
           </div>
-          <p className="info__user-description">{currentUser.about}</p>
+          <p className="info__user-description">{ currentUser.about }</p>
         </div>
-        <button onClick={onAddPlace} className="profile__button-add" type="button" />
+        <button onClick={ onAddPlace } className="profile__button-add" type="button" />
       </section>
       <section className="cards-section">
         <ul className="cards">
           {cards.map(({ name, link, likes, owner, _id }) => (
-            <Card key={_id} id = {_id} owner={owner} name={name} link={link} likes={likes} onCardClick={onCardClick} onCardLike = { handleCardLike } onCardDelete = { handleCardDelete }/>
+            <Card key={ _id } id = { _id } owner={ owner } name={ name } link={ link } likes={ likes } onCardClick={ onCardClick } onCardLike = { handleCardLike } onCardDelete = { handleCardDelete }/>
           ))}
         </ul>
       </section>

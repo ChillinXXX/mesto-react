@@ -8,6 +8,7 @@ import { buttonText } from '../utils/constants.js';
 import api from '../utils/api.js';
 import EditProfilePopup from './EditProfilePopup';
 import { CurrentUserContext, defaultUser } from '../contexts/CurrentUserContext';
+import EditAvatarPopup from './EditAvatarPopup.js';
 
 const App = () => {
 
@@ -97,12 +98,17 @@ const App = () => {
       </PopupWithForm>
       */}
 
+      <EditAvatarPopup isOpen={ isEditAvatarPopupOpen } onClose={ handleClosePopup } setCurrentUserData = { setCurrentUser } onClosePopup = { closeAllPopups }/>
+
+      {/*
       <PopupWithForm name={'avatar'} title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} buttonTextContent={buttonText.save} onClose={handleClosePopup}>
         <div className="popup__field">
           <input type="url" className="popup__input popup__input_el_link-avatar" id="link-avatar" name="link" placeholder="Ссылка на картинку" required />
           <span className="popup__input-error link-avatar-error" />
         </div>
       </PopupWithForm>
+      */}
+
 
       <PopupWithForm name={'addCard'} title={'Новое место'} buttonTextContent={buttonText.create} isOpen={isAddPlacePopupOpen} onClose={handleClosePopup}>
         <div className="popup__field">

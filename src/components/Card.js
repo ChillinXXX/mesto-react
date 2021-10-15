@@ -2,17 +2,20 @@ import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 
 const Card = ({id, owner, name, link, likes, onCardClick, onCardLike, onCardDelete }) => {
+  
   //Подписываемся на контекст currentUser
   const currentUser = React.useContext(CurrentUserContext);
+  
   //Определяем принадлежит ли карточка текущему ползователю
   const isMyCard = owner._id === currentUser._id;
+  
   //Запишем в массив ID всех пользователей лакнувших карточку
   const ownersID = likes.reduce((value, item) => {
     const length = value.push(item._id);
     return value;
   }, []);
 
-  //Функция: Передаем в хендл данные текущей карточки для  useState переменной selectedCard
+  //Функции обратного вызова
   const handleClickPreview = () => {
     onCardClick({ name, link });
   }

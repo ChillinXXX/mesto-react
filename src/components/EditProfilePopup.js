@@ -5,19 +5,24 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 import api from "../utils/api";
 
 const EditProfilePopup = ({ isOpen, onClose, setCurrentUserData, onClosePopup }) => {
+
   //Подписка на провайдера контекста данных текущего пользователя
   const currentUser = React.useContext(CurrentUserContext);
+
   //Задаем сетеры для упраления состоянием из инпутов
   const [name, setName] = React.useState('user');
   const [description, setDescription] = React.useState('about user');
-  //Помещаем сетеры в функцию оратного вызова
+
+  //Помещаем сетеры в функции обратного вызова
   const handleChacgeName = (evt) => {
     setName(evt.target.value);
   }
+
   const handleChangeDescription = (evt) => {
     setDescription(evt.target.value);
   }
 
+  //Хендл по событию Submit формы
   const handleSubmit = (evt) => {
     evt.preventDefault();
     api.setUserInfo(
@@ -36,8 +41,6 @@ const EditProfilePopup = ({ isOpen, onClose, setCurrentUserData, onClosePopup })
     setName(currentUser);
     setDescription(currentUser);
   }, [currentUser])
-
-
 
   return (
     <>

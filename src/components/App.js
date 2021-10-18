@@ -26,23 +26,29 @@ const App = () => {
   //Переменная состояния массива карточек
   const [cards, setCards] = React.useState([]);
 
-  //При перевой загрузке страницы делаем API запрос данных карточек и записывае в значения переменных useState
-  React.useEffect(() => {
-    api.getInitialCardList()
-      .then((dataCards) => {
-        setCards(dataCards);
-      })
-      .catch((error) => alert(`Что-то пошло не так=( ${error}`));
-  }, [])
+  //Переменные состояния для AddPlace
+  const [cardName, setCardName] = React.useState('');
+  const [cardLink, setCardLink] = React.useState('');
 
+  //Задаем сетеры для упраления состоянием из инпутов
+  const [userName, setUserName] = React.useState('');
+  const [userAbout, setUserAbout] = React.useState('');
+
+  //Создаем указатель Ref на DOM элемент инпут формы с аватаром
+  const updateAvatar = React.useRef();
+
+  //При перевой загрузке страницы делаем API запрос данных карточек и записывае в значения переменных useState
   //При первой загрузке страницы выполняем запрос данных пользователя с сервера и записываем в переменную currentUser
   React.useEffect(() => {
-    api.getUserInfo()
-      .then((result) => {
-        setCurrentUser(result);
+    Promise.all([ 
+      api.getUserInfo(),
+      api.getInitialCardList()
+    ]).then((results) => {
+        setCurrentUser(results[0]);
+        setCards(results[1]);
       })
       .catch((error) => alert(`Что-то пошло не так=( ${error}`));
-  }, [])
+  }, []);
 
   //Функция обработки лайка/дизлайка карточки
   const handleCardLike = ({ likes, id }) => {
@@ -76,6 +82,49 @@ const App = () => {
                       })
                     .catch((error) => {console.log(`Ошибка запроса API:${error}`)})
   }
+
+ 
+  //Хендл обновления данных аватара
+  const handleUpdateAvatar = (evt) => {
+    evt.preventDefault();
+    api.setUserAvatar({ link: updateAvatar.current.value })
+      .then((userData) => { 
+        setCurrentUser(userData);
+        closeAllPopups();
+       })
+      .catch((error) => { console.log(`Ошибка запроса API: ${error}`) });
+  }
+
+  //Хендл обновления данных новой карточки
+  const handleAddPlaceSubmit = (evt) => {
+    evt.preventDefault();
+    api.setNewCard({
+        name: cardName,
+        link: cardLink
+    })
+        .then((newCard) => {
+            setCards([newCard, ...cards]);
+            closeAllPopups();
+        })
+        .catch((error) => { console.log(`Ошибка API:${error}`) });
+
+}
+
+//Хендл обновление данных пользователя из формы
+const handleUpdateUser = (evt) => {
+  evt.preventDefault();
+  api.setUserInfo(
+    {
+      name: userName,
+      about: userAbout
+    }
+  )
+    .then((userData) => { 
+      setCurrentUser(userData);
+      closeAllPopups();
+     })
+    .catch((error) => { console.log(`Ошибка запроса API: ${error}`) });
+}
 
   //Функция: Закрытие попаов и сброс значений
   const closeAllPopups = () => {
@@ -133,24 +182,29 @@ const App = () => {
 
       <EditProfilePopup 
         isOpen             = { isEditProfilePopupOpen } 
-        onClose            = { handleClosePopup } 
-        setCurrentUserData = { setCurrentUser } 
-        onClosePopup       = { closeAllPopups }
+        name               = { userName }
+        about              = { userAbout }
+        onClose            = { handleClosePopup }
+        onSetUserName      = { setUserName }
+        onSetUserAbout     = { setUserAbout }
+        onUpdateUser       = { handleUpdateUser }
       />
 
       <EditAvatarPopup 
-        isOpen             = { isEditAvatarPopupOpen } 
+        isOpen             = { isEditAvatarPopupOpen }
+        updateAvatar       = { updateAvatar }
+        onUpdateAvatar     = { handleUpdateAvatar } 
         onClose            = { handleClosePopup } 
-        setCurrentUserData = { setCurrentUser } 
-        onClosePopup       = { closeAllPopups }
       />
 
       <AddPlacePopup 
-        cards   = { cards }
-        isOpen  = { isAddPlacePopupOpen } 
-        onClose = { handleClosePopup } 
-        onSetCard = { setCards }
-        onClosePopup  = { closeAllPopups }
+        isOpen  = { isAddPlacePopupOpen }
+        name    = { cardName }
+        link    = { cardLink }
+        onSetName = { setCardName }
+        onSetLink = { setCardLink }
+        onClose = { handleClosePopup }
+        onAddPlace = { handleAddPlaceSubmit }
       />
       
       <ImagePopup 

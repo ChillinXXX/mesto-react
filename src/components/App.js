@@ -26,17 +26,6 @@ const App = () => {
   //Переменная состояния массива карточек
   const [cards, setCards] = React.useState([]);
 
-  //Переменные состояния для AddPlace
-  const [cardName, setCardName] = React.useState('');
-  const [cardLink, setCardLink] = React.useState('');
-
-  //Задаем сетеры для упраления состоянием из инпутов
-  const [userName, setUserName] = React.useState('');
-  const [userAbout, setUserAbout] = React.useState('');
-
-  //Создаем указатель Ref на DOM элемент инпут формы с аватаром
-  const updateAvatar = React.useRef();
-
   //При перевой загрузке страницы делаем API запрос данных карточек и записывае в значения переменных useState
   //При первой загрузке страницы выполняем запрос данных пользователя с сервера и записываем в переменную currentUser
   React.useEffect(() => {
@@ -91,8 +80,7 @@ const App = () => {
   //Хендл обработки удаления карточки
   const handleCardDelete = ({ id }) => {
     api.deleteCard(id)
-      .then((serverResponse) => {
-        //console.log(serverResponse);
+      .then(() => {
         const updateCards = cards.filter(card => card._id !== id);
         setCards(updateCards);
       })
@@ -101,9 +89,8 @@ const App = () => {
 
 
   //Хендл обновления данных аватара
-  const handleUpdateAvatar = (evt) => {
-    evt.preventDefault();
-    api.setUserAvatar({ link: updateAvatar.current.value })
+  const handleUpdateAvatar = (avatar) => {
+    api.setUserAvatar(avatar)
       .then((userData) => {
         setCurrentUser(userData);
         closeAllPopups();
@@ -112,31 +99,20 @@ const App = () => {
   }
 
   //Хендл обновления данных новой карточки
-  const handleAddPlaceSubmit = (evt) => {
-    evt.preventDefault();
-    api.setNewCard({
-      name: cardName,
-      link: cardLink
-    })
+  const handleAddPlaceSubmit = (cardData) => {
+    api.setNewCard(cardData)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
       .catch((error) => { console.log(`Ошибка API:${error}`) });
-
   }
 
   //Хендл обновление данных пользователя из формы
-  const handleUpdateUser = (evt) => {
-    evt.preventDefault();
-    api.setUserInfo(
-      {
-        name: userName,
-        about: userAbout
-      }
-    )
-      .then((userData) => {
-        setCurrentUser(userData);
+  const handleUpdateUser = (userData) => {
+    api.setUserInfo(userData)
+      .then((newUser) => {
+        setCurrentUser(newUser);
         closeAllPopups();
       })
       .catch((error) => { console.log(`Ошибка запроса API: ${error}`) });
@@ -182,27 +158,18 @@ const App = () => {
 
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
-        name={userName}
-        about={userAbout}
         onClose={handleClosePopup}
-        onSetUserName={setUserName}
-        onSetUserAbout={setUserAbout}
         onUpdateUser={handleUpdateUser}
       />
 
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
-        updateAvatar={updateAvatar}
         onUpdateAvatar={handleUpdateAvatar}
         onClose={handleClosePopup}
       />
 
       <AddPlacePopup
         isOpen={isAddPlacePopupOpen}
-        name={cardName}
-        link={cardLink}
-        onSetName={setCardName}
-        onSetLink={setCardLink}
         onClose={handleClosePopup}
         onAddPlace={handleAddPlaceSubmit}
       />
